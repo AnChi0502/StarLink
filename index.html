@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFF9FB">
+  <meta name="description" content="StarLink 個人周邊收藏記帳系統，記錄收藏、搜尋商品並掌握累積花費。">
+  <title>StarLink｜記錄你的每一顆星</title>
+  <style>
+    :root{color-scheme:light;--lavender:#B79AC8;--pink:#F2B6C8;--yellow:#F6E38B;--bg:#FFF9FB;--border:#F1E4EE;--ink:#2E2A35;--muted:#7D7486;--purple:#8E6DB0;--deep:#70508E;--shadow:0 8px 28px #76538709}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}button,input,textarea{transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}button:focus-visible,a:focus-visible{outline:3px solid var(--purple);outline-offset:4px}button:disabled{cursor:not-allowed;opacity:.6}svg{display:block;flex-shrink:0}main{max-width:1100px;margin:auto;padding:0 28px 44px}.topline{height:5px;background:linear-gradient(90deg,var(--lavender),var(--pink) 64%,var(--yellow))}
+    .header{display:flex;justify-content:space-between;align-items:center;padding:42px 0 30px;gap:20px}.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:50px;height:50px;display:grid;place-items:center;background:#EEE4F5;border:1px solid #E1D1EC;border-radius:17px;color:var(--purple);transform:rotate(-7deg)}h1{font:700 32px/1.2 system-ui,sans-serif;letter-spacing:-1.2px;margin:0;color:var(--deep)}.brand-caption{font-size:12px;letter-spacing:2px;margin:5px 0 0;color:var(--muted)}
+    .intro{position:relative;padding:26px 30px;margin-bottom:28px;border-radius:20px;background:linear-gradient(110deg,#F1E8F7,#FBEAF0 73%,#FFF6D9);overflow:hidden;border:1px solid var(--border)}.eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;color:var(--deep);margin:0 0 8px}.intro h2{font-size:24px;margin:0 0 6px}.intro p:last-of-type{margin:0;color:#706276;font-size:14px}.intro-art{position:absolute;right:38px;top:24px;color:#B79AC8;opacity:.65;transform:rotate(10deg)}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:30px}.stat{background:#FFF;border:1px solid var(--border);border-radius:18px;padding:21px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}.stat-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.stat-label{font-size:14px;color:var(--muted);margin:0}.icon-box{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#F0E8F6;color:#8A67A7}.stat:nth-child(2) .icon-box{background:#FCE9F0;color:#AA647D}.stat:nth-child(3) .icon-box{background:#FFF7D7;color:#8B793A}.stat-value{font:700 26px/1.4 system-ui,sans-serif;margin:9px 0 2px;overflow-wrap:anywhere}.unit{font-size:14px;font-weight:400;color:var(--muted);margin-left:7px}.currency{font-size:15px;font-weight:500;color:var(--muted);margin-right:6px}.stat-hint{font-size:12px;color:var(--muted);margin:0}
+    .panel{background:white;border:1px solid var(--border);border-radius:20px;padding:26px 28px;box-shadow:var(--shadow);margin-bottom:30px}.section-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}.heading-mark{color:var(--purple)}h2{font-size:22px;line-height:1.5;margin:0;font-weight:700}.section-desc{font-size:14px;color:var(--muted);margin:0 0 23px}.section-number{margin-left:auto;font-size:11px;letter-spacing:1px;color:#96869F}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 22px}.field{min-width:0}.field label{display:block;font-size:14px;font-weight:500;margin-bottom:7px}.required{color:var(--purple);margin-left:4px}.optional{color:var(--muted);font-size:12px;font-weight:400;margin-left:7px}.wide{grid-column:1/-1}input,textarea{display:block;width:100%;min-width:0;border:1px solid #E7DDEB;border-radius:11px;background:#FFFDFF;color:var(--ink);padding:11px 13px;outline:none}input::placeholder,textarea::placeholder{color:#908597;font-size:14px}input:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px #B79AC824}input[aria-invalid=true]{border-color:#B65173}textarea{resize:vertical;min-height:88px}.money-input{position:relative}.money-input span{position:absolute;left:13px;top:11px;color:var(--muted);font-size:14px}.money-input input{padding-left:52px}.error{color:#A33C61;font-size:13px;margin:5px 0 0}.error:empty{display:none}.form-bottom{display:flex;justify-content:space-between;align-items:center;gap:18px;border-top:1px solid var(--border);margin-top:22px;padding-top:20px}.form-tip{font-size:12px;color:var(--muted);margin:0}.primary{border:0;color:#FFF;background:linear-gradient(105deg,#80609F,#946A9D);border-radius:12px;padding:12px 25px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap}.primary:hover{transform:translateY(-2px);box-shadow:0 6px 16px #8E6DB035}.feedback{font-size:14px;border-radius:10px;margin:0 0 18px;padding:12px 15px;background:#F0EAF7;color:#61427D}.feedback[data-kind=error]{background:#FFF0F4;color:#A33C61}.feedback[hidden]{display:none}
+    .list-heading{display:flex;align-items:center;gap:10px;margin-bottom:5px}.count{font-size:12px;padding:2px 10px;border-radius:20px;background:#EEE5F5;color:var(--deep)}.list-desc{color:var(--muted);font-size:14px;margin:0 0 18px}.search-wrap{position:relative;margin-bottom:20px}.search-wrap svg{position:absolute;left:16px;top:15px;color:var(--muted)}.search-wrap input{background:white;padding:13px 16px 13px 47px;border-color:var(--border);box-shadow:var(--shadow)}.collection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.collection-card{min-width:0;border:1px solid var(--border);border-radius:18px;background:white;padding:22px 24px;box-shadow:var(--shadow);border-top:3px solid #D9C6E6}.collection-card:nth-child(even){border-top-color:#F0CEDA}.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.collection-card h3{font-size:18px;font-weight:600;line-height:1.5;margin:0;overflow-wrap:anywhere}.delete{border:0;background:transparent;color:#97657A;font-size:13px;padding:5px 8px;border-radius:8px;display:flex;gap:5px;align-items:center;flex-shrink:0}.delete:hover{background:#FCEBF1;color:#A33C61}.tags{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0 17px}.tag{font-size:13px;line-height:1.5;padding:4px 11px;border-radius:20px;background:#F1EAF7;color:#70528B;overflow-wrap:anywhere;max-width:100%}.tag.category{background:#FFF6D6;color:#78682F}.card-price{font:700 22px/1.4 system-ui,sans-serif;color:var(--deep);margin:0;overflow-wrap:anywhere}.card-price span{font-size:13px;font-weight:500;margin-right:5px}.details{border-top:1px solid var(--border);margin-top:16px;padding-top:13px;color:var(--muted);font-size:14px}.details p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.details p+p{margin-top:7px}.detail-label{font-size:12px;color:#806F8B;margin-right:9px}.empty{grid-column:1/-1;text-align:center;border:1px dashed #DFCFE6;border-radius:18px;padding:42px 20px;background:#FFFFFF80}.empty-icon{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 14px;border-radius:19px;background:#F0E7F5;color:var(--purple)}.empty p{font-size:14px;color:var(--muted);margin:0}.footer{border-top:1px solid var(--border);margin-top:30px;padding-top:20px;display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:12px}.footer p{margin:0}.footer-brand{font-weight:600;color:var(--deep);letter-spacing:.5px;white-space:nowrap}
+    dialog{border:1px solid var(--border);border-radius:20px;padding:26px;max-width:420px;width:calc(100% - 40px);color:var(--ink);box-shadow:0 18px 80px #39254230}dialog::backdrop{background:#30213E55}dialog h2{font-size:20px}dialog p{color:var(--muted);font-size:14px;overflow-wrap:anywhere}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.secondary{padding:10px 20px;background:white;border:1px solid #DED0E6;border-radius:11px;color:var(--deep)}.danger{background:#9F4567}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:768px){main{padding:0 18px 30px}.header{padding:28px 0 24px}.intro{padding:23px;margin-bottom:22px}.intro h2{font-size:22px}.intro-art{right:14px;top:28px;width:55px;opacity:.3}.intro p:last-of-type{max-width:90%}.stats{grid-template-columns:1fr;gap:12px;margin-bottom:24px}.stat{padding:18px 22px}.stat-value{margin-top:1px}.panel{padding:23px 20px;margin-bottom:26px}.form-grid,.collection-grid{grid-template-columns:1fr}.form-bottom{align-items:stretch;flex-direction:column;gap:12px}.primary{width:100%}.section-number{display:none}.footer{flex-direction:column;gap:8px}.dialog-actions .primary{width:auto}.collection-card{padding:20px}.brand-caption{letter-spacing:1.5px}}
+    [hidden]{display:none!important}.nav{display:flex;gap:7px;padding:7px;margin:0;background:#F2EAF5;border:1px solid var(--border);border-radius:15px;width:fit-content}.nav button{border:0;border-radius:10px;padding:11px 23px;background:transparent;color:#786783;font-weight:600}.nav button:hover{background:#FFFFFF85}.nav button[aria-selected=true]{background:white;color:var(--deep);box-shadow:0 3px 10px #76538712}.stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.stat{padding:20px}.page-title{outline:none}.page-title:focus-visible{outline:2px solid var(--purple);outline-offset:5px}.intro .welcome-brand{font:700 15px/1.4 system-ui,sans-serif;letter-spacing:1px;color:var(--deep);margin:0 0 8px}.panel-header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}.panel-header .section-desc{margin:5px 0 0}.ranking-list{display:grid;gap:20px}.rank-info{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}.rank-name{display:flex;gap:10px;align-items:baseline;min-width:0;font-weight:500;overflow-wrap:anywhere}.rank-index{font:600 13px system-ui,sans-serif;color:var(--purple);flex-shrink:0}.rank-values{font-size:13px;color:var(--muted);text-align:right;flex-shrink:0}.rank-values strong{font-weight:600;color:var(--deep);margin-left:10px}.bar-track{height:9px;border-radius:20px;background:#F5EEF8;overflow:hidden}.bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--lavender),var(--pink))}.ranking-actions{text-align:center;margin-top:20px}.recent-list{display:grid;gap:12px}.recent-item{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--border);border-radius:13px;padding:15px 18px;background:#FFFDFF}.recent-info{min-width:0}.recent-item h3{font-size:16px;line-height:1.5;margin:0;overflow-wrap:anywhere}.recent-item .tags{margin:7px 0 0}.recent-item .card-price{font-size:19px;flex-shrink:0}.empty .primary{margin-top:18px}.filter-panel{background:white;border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:20px}.filter-panel .search-wrap{margin-bottom:14px}.filter-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;align-items:end}.filter-row label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}.filter-row>div{min-width:0}select{width:100%;min-width:0;font:inherit;font-size:14px;background:#FFFDFF;color:var(--ink);border:1px solid #E7DDEB;border-radius:10px;padding:11px 9px;outline:none}select:focus{border-color:var(--purple);box-shadow:0 0 0 3px #B79AC824}select:focus-visible{outline:2px solid var(--purple);outline-offset:2px}.secondary:hover{background:#F4ECF8;border-color:var(--lavender)}.date-line{font-size:13px;color:var(--muted);margin:12px 0 0}.load-warning{color:#A33C61;font-size:14px;margin-top:10px}.result-summary{font-size:13px;color:var(--muted);margin:0 0 14px}.ranking-note{font-size:12px;color:var(--muted);margin:16px 0 0}
+    @media(max-width:1000px) and (min-width:769px){.filter-row{grid-template-columns:repeat(3,minmax(0,1fr))}.filter-row .secondary{grid-column:1/-1;justify-self:end}}
+    @media(max-width:768px){.nav{width:100%;gap:4px;padding:5px}.nav button{flex:1;padding:11px 5px;font-size:14px}.stats{grid-template-columns:1fr}.stat{padding:18px 22px}.filter-row{grid-template-columns:1fr}.filter-panel{padding:15px}.filter-row .secondary{width:100%}.rank-info{align-items:flex-start}.rank-values{font-size:12px}.rank-values strong{display:block;margin:0}.recent-item{align-items:flex-start;flex-direction:column;gap:9px}.recent-item .card-price{align-self:flex-end}.panel-header>.secondary{width:100%}.intro-art{pointer-events:none}}
+    .header nav{flex-shrink:0}.card-top{flex-wrap:wrap}.card-top h3{flex:1 1 150px;min-width:0}.card-actions{display:flex;gap:3px;margin-left:auto;flex-shrink:0}.edit{border:0;background:#F5EFF9;color:var(--deep);font-size:13px;padding:5px 8px;border-radius:8px;display:flex;gap:5px;align-items:center}.edit:hover{background:#EAE0F2}.edit-dialog{max-width:720px;max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;padding:28px}.edit-dialog .section-desc{margin:6px 0 22px}.edit-dialog .error{font-size:13px;margin:5px 0 0}.edit-dialog .dialog-actions{border-top:1px solid var(--border);padding-top:20px}.edit-dialog .field .optional{line-height:1.5}.edit-dialog .feedback{margin-top:16px}.edit-date-hint{font-size:12px;margin:7px 0 0;color:var(--muted)}body:has(dialog[open]){overflow:hidden}
+    @media(max-width:768px){.header{flex-direction:column;align-items:stretch;gap:22px}.header .brand{align-self:flex-start}.header nav{width:100%}.edit-dialog{padding:22px 18px;width:calc(100% - 24px)}.edit-dialog .dialog-actions{flex-wrap:wrap}.edit-dialog .dialog-actions>*{flex:1}.card-actions button{min-height:38px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}.primary:hover{transform:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.8L6.6 20l1-6-4.4-4.3 6.1-.9Z"/></symbol><symbol id="box" viewBox="0 0 24 24"><path d="m3 7 9-4 9 4v11l-9 4-9-4Zm0 0 9 4 9-4M12 11v11M7.5 5l9 4"/></symbol><symbol id="wallet" viewBox="0 0 24 24"><path d="M20 8V5H5a2 2 0 0 0 0 4h16v11H5a2 2 0 0 1-2-2V7m18 6h-5v4h5M17 15h1"/></symbol><symbol id="chart" viewBox="0 0 24 24"><path d="M4 3v17h17M9 15v-4m5 4V7m5 8V5"/></symbol><symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="search-icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="edit-icon" viewBox="0 0 24 24"><path d="m15 4 5 5M4 20l1-6L16 3a2 2 0 0 1 3 0l2 2a2 2 0 0 1 0 3L10 19Zm0 0 6-1"/></symbol><symbol id="trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol></svg>
+  <div class="topline"></div>
+  <main>
+    <header class="header"><div class="brand"><div class="brand-mark"><svg width="29" height="29" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><use href="#star"/></svg></div><div><h1>StarLink</h1><p class="brand-caption">COLLECTION JOURNAL</p></div></div><nav aria-label="主要導覽"><div class="nav" role="tablist" aria-label="功能頁面"><button id="tab-dashboard" type="button" role="tab" aria-selected="true" aria-controls="page-dashboard" tabindex="0" data-page="dashboard">首頁</button><button id="tab-add" type="button" role="tab" aria-selected="false" aria-controls="page-add" tabindex="-1" data-page="add">新增收藏</button><button id="tab-collection" type="button" role="tab" aria-selected="false" aria-controls="page-collection" tabindex="-1" data-page="collection">我的收藏</button></div></nav></header>
+    <div id="storage-error" class="feedback" data-kind="error" role="alert" hidden></div>
+    <section id="page-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+    <section class="intro" aria-labelledby="intro-title"><p class="welcome-brand">StarLink</p><h2 id="intro-title" class="page-title" tabindex="-1">記錄你的每一顆星</h2><p>讓每一份熱愛，都在這裡閃閃發光。</p><svg class="intro-art" width="86" height="86" fill="none" stroke="currentColor" stroke-width=".8" aria-hidden="true"><use href="#star"/></svg></section>
+    <section class="stats" aria-label="全部收藏統計">
+      <article class="stat"><div class="stat-top"><p class="stat-label">本月花費</p><span class="icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#wallet"/></svg></span></div><p class="stat-value"><span class="currency">NT$</span><span id="monthly-price">0</span></p><p class="stat-hint" id="month-label">依購入日期計算</p></article>
+      <article class="stat"><div class="stat-top"><p class="stat-label">累積總花費</p><span class="icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#wallet"/></svg></span></div><p class="stat-value"><span class="currency">NT$</span><span id="total-price">0</span></p><p class="stat-hint">收藏至今的所有購入金額</p></article>
+      <article class="stat"><div class="stat-top"><p class="stat-label">收藏總數</p><span class="icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#box"/></svg></span></div><p class="stat-value"><span id="total-count">0</span><span class="unit">件</span></p><p class="stat-hint">每一件，都是喜歡的模樣</p></article>
+    </section>
+    <section class="panel" aria-labelledby="ranking-title"><div class="panel-header"><div><h2 id="ranking-title">作品花費排行</h2><p class="section-desc">看看你的收藏花費，都分布在哪些喜愛的作品。</p></div></div><div id="ranking-list" class="ranking-list"></div><div class="ranking-actions"><button id="toggle-ranking" class="secondary" type="button" aria-expanded="false" aria-controls="ranking-list" hidden>展開全部</button></div><p class="ranking-note">依累積花費排行，長條以最高花費作品為基準。</p></section>
+    <section class="panel" aria-labelledby="recent-title"><div class="panel-header"><div><h2 id="recent-title">最近新增的收藏</h2><p class="section-desc">最近記下的三顆星，留住剛入手的心動。</p></div><button class="secondary" type="button" data-go="collection">查看全部收藏</button></div><div id="recent-list" class="recent-list"></div></section>
+    </section>
+    <section id="page-add" role="tabpanel" aria-labelledby="tab-add" hidden>
+    <div id="add-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+    <section class="panel" aria-labelledby="form-title"><div class="section-heading"><svg class="heading-mark" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><use href="#plus"/></svg><h2 id="form-title" class="page-title" tabindex="-1">新增收藏</h2><span class="section-number">ADD A FAVORITE</span></div><p class="section-desc">為新入手的喜歡，留下一筆紀錄。<span class="required">*</span> 為必填欄位</p>
+      <form id="collection-form" novalidate>
+        <div class="form-grid">
+          <div class="field"><label for="name">周邊名稱<span class="required">*</span></label><input id="name" name="name" required placeholder="例如：金獨子壓克力立牌" aria-describedby="name-error"><p id="name-error" class="error"></p></div>
+          <div class="field"><label for="ip">作品 / IP<span class="required">*</span></label><input id="ip" name="ip" required list="ip-suggestions" placeholder="例如：全知讀者視角（全知）、患上不出道就會死的病（出道死）" aria-describedby="ip-error"><datalist id="ip-suggestions"></datalist><p id="ip-error" class="error"></p></div>
+          <div class="field"><label for="category">周邊類型<span class="required">*</span></label><input id="category" name="category" required list="category-suggestions" placeholder="例如：徽章、立牌、小卡、棉花娃" aria-describedby="category-error"><datalist id="category-suggestions"></datalist><p id="category-error" class="error"></p></div>
+          <div class="field"><label for="price">購入金額<span class="required">*</span></label><div class="money-input"><span aria-hidden="true">NT$</span><input id="price" name="price" type="number" min="0" step="1" inputmode="numeric" required placeholder="請輸入非負整數，允許 0" aria-describedby="price-error"></div><p id="price-error" class="error"></p></div>
+          <div class="field"><label for="purchaseDate">購入日期<span class="required">*</span></label><input id="purchaseDate" name="purchaseDate" type="date" required aria-describedby="purchaseDate-error"><p id="purchaseDate-error" class="error"></p></div>
+          <div class="field"><label for="source">購入來源<span class="optional">選填</span></label><input id="source" name="source" placeholder="例如：Animate、通販、代購"></div>
+          <div class="field wide"><label for="note">備註<span class="optional">選填</span></label><textarea id="note" name="note" rows="2" placeholder="例如：限定特典、角色、版本，或其他想記錄的小故事……"></textarea></div>
+        </div><div class="form-bottom"><p class="form-tip">成功儲存後，就為收藏宇宙添上一顆星。</p><button class="primary" type="submit"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><use href="#plus"/></svg>新增收藏</button></div>
+      </form>
+    </section>
+    </section>
+    <section id="page-collection" role="tabpanel" aria-labelledby="tab-collection" hidden><div id="collection-feedback" class="feedback" role="status" aria-live="polite" hidden></div><div class="list-heading"><h2 id="list-title" class="page-title" tabindex="-1">我的收藏</h2><span id="list-count" class="count">0 件</span></div><p class="list-desc">沿著作品與回憶，找到屬於你的那顆星。</p><div class="filter-panel"><div class="search-wrap"><label for="search" class="sr-only">搜尋周邊名稱、作品、類型、來源或備註</label><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><use href="#search-icon"/></svg><input id="search" type="search" placeholder="搜尋周邊名稱、作品、類型、來源或備註……" autocomplete="off"></div><div class="filter-row"><div><label for="filter-ip">作品 / IP</label><select id="filter-ip"><option value="">全部作品</option></select></div><div><label for="filter-category">周邊類型</label><select id="filter-category"><option value="">全部類型</option></select></div><div><label for="sort-order">排序方式</label><select id="sort-order"><option value="newest">最新新增</option><option value="oldest">最早新增</option><option value="price-desc">購入金額由高到低</option><option value="price-asc">購入金額由低到高</option></select></div><button id="clear-filters" class="secondary" type="button">清除篩選</button></div></div><p id="result-status" class="result-summary" role="status" aria-live="polite"></p><div id="collection-list" class="collection-grid"></div></section>
+    <footer class="footer"><p class="footer-brand">StarLink · 記錄你的每一顆星</p><p>資料僅保存在此瀏覽器，不支援跨裝置同步。清除網站資料、更換瀏覽器或使用無痕模式，可能無法保留紀錄。</p></footer>
+  </main>
+  <dialog id="delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-description"><h2 id="delete-title">刪除這筆收藏？</h2><p id="delete-description"></p><div class="dialog-actions"><button id="cancel-delete" class="secondary" type="button" autofocus>取消</button><button id="confirm-delete" class="primary danger" type="button">確認刪除</button></div></dialog>
+  <dialog id="edit-dialog" class="edit-dialog" aria-labelledby="edit-title" aria-describedby="edit-description">
+    <h2 id="edit-title">編輯收藏</h2><p id="edit-description" class="section-desc">更新這顆星的故事，原本的建立時間會保留。</p>
+    <div id="edit-storage-error" class="feedback" data-kind="error" role="alert" hidden></div>
+    <form id="edit-form" novalidate>
+      <div class="form-grid">
+        <div class="field"><label for="edit-name">周邊名稱<span class="required">*</span></label><input id="edit-name" name="name" required aria-describedby="edit-name-error" autofocus><p id="edit-name-error" class="error"></p></div>
+        <div class="field"><label for="edit-ip">作品 / IP<span class="required">*</span></label><input id="edit-ip" name="ip" required list="ip-suggestions" aria-describedby="edit-ip-error"><p id="edit-ip-error" class="error"></p></div>
+        <div class="field"><label for="edit-category">周邊類型<span class="required">*</span></label><input id="edit-category" name="category" required list="category-suggestions" aria-describedby="edit-category-error"><p id="edit-category-error" class="error"></p></div>
+        <div class="field"><label for="edit-price">購入金額<span class="required">*</span></label><div class="money-input"><span aria-hidden="true">NT$</span><input id="edit-price" name="price" type="number" min="0" step="1" inputmode="numeric" required aria-describedby="edit-price-error"></div><p id="edit-price-error" class="error"></p></div>
+        <div class="field"><label for="edit-purchaseDate">購入日期<span id="edit-date-required" class="required">*</span><span id="edit-date-optional" class="optional" hidden>舊紀錄可留空</span></label><input id="edit-purchaseDate" name="purchaseDate" type="date" aria-describedby="edit-purchaseDate-error edit-date-hint"><p id="edit-purchaseDate-error" class="error"></p><p id="edit-date-hint" class="edit-date-hint"></p></div>
+        <div class="field"><label for="edit-source">購入來源<span class="optional">選填</span></label><input id="edit-source" name="source"></div>
+        <div class="field wide"><label for="edit-note">備註<span class="optional">選填</span></label><textarea id="edit-note" name="note" rows="3"></textarea></div>
+      </div>
+      <div class="dialog-actions"><button id="cancel-edit" class="secondary" type="button">取消</button><button class="primary" type="submit">儲存修改</button></div>
+    </form>
+  </dialog>
+  <script>
+    'use strict';
+    const STORAGE_KEY = 'starlink_collections_v1';
+    const $ = id => document.getElementById(id);
+    const form = $('collection-form');
+    const list = $('collection-list');
+    const dialog = $('delete-dialog');
+    const editDialog = $('edit-dialog');
+    const editForm = $('edit-form');
+    const formatter = new Intl.NumberFormat('zh-TW');
+    let collections = [];
+    let storageReady = true;
+    let pendingId = null;
+    let deleteTrigger = null;
+    let rankingExpanded = false;
+    let editingId = null;
+    let editTrigger = null;
+    let activePage = 'dashboard';
+    let feedbackTimer = null;
+    const nameOrder = new Intl.Collator('zh-Hant', {numeric:true});
+    const commonCategories = ['徽章','壓克力立牌','色紙','吊飾','娃娃','拍立得','明信片'];
+    const requiredFields = ['name','ip','category','price','purchaseDate'];
+
+    function today() {
+      const date = new Date();
+      return `${String(date.getFullYear()).padStart(4, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    }
+    function validDate(value) {
+      if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+      const [year, month, day] = value.split('-').map(Number);
+      if (year < 1 || month < 1 || month > 12 || day < 1) return false;
+      const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+      return day <= [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+    }
+    function showPage(name, focusHeading = false) {
+      if (!['dashboard','add','collection'].includes(name)) return;
+      if (name !== activePage) clearNotice();
+      activePage = name;
+      for (const tab of document.querySelectorAll('[role="tab"]')) {
+        const selected = tab.dataset.page === name;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        $(tab.getAttribute('aria-controls')).hidden = !selected;
+      }
+      renderDashboard();
+      if (focusHeading) $('page-' + name).querySelector('.page-title').focus();
+    }
+    function compareNames(a, b) {
+      return nameOrder.compare(a, b) || (a < b ? -1 : a > b ? 1 : 0);
+    }
+    function newest(a, b) {
+      return Date.parse(b.createdAt) - Date.parse(a.createdAt) || compareNames(a.id, b.id);
+    }
+    function clearErrors(prefix = '') {
+      for (const key of requiredFields) {
+        $(prefix + key + '-error').textContent = '';
+        $(prefix + key).removeAttribute('aria-invalid');
+      }
+    }
+
+    function clearNotice() {
+      clearTimeout(feedbackTimer);
+      feedbackTimer = null;
+      for (const id of ['add-feedback','collection-feedback']) {
+        $(id).hidden = true;
+        $(id).textContent = '';
+      }
+    }
+    function notify(message, kind = 'success', page = activePage) {
+      clearNotice();
+      const target = page === 'add' ? $('add-feedback') : $('collection-feedback');
+      target.textContent = message;
+      target.dataset.kind = kind;
+      target.hidden = false;
+      if (kind === 'success') feedbackTimer = setTimeout(clearNotice, 3000);
+    }
+    function storageError(message) {
+      clearNotice();
+      $('storage-error').textContent = message;
+      $('storage-error').hidden = false;
+      if (editDialog.open) {
+        $('edit-storage-error').textContent = message;
+        $('edit-storage-error').hidden = false;
+      }
+    }
+    function clearStorageError() {
+      for (const id of ['storage-error','edit-storage-error']) {
+        $(id).textContent = '';
+        $(id).hidden = true;
+      }
+    }
+    function validRecord(item) {
+      // 舊紀錄可缺少 purchaseDate；不從 createdAt 推測或補寫購入日期。
+      return item && typeof item === 'object' && typeof item.id === 'string' && item.id.trim() &&
+        ['name', 'ip', 'category'].every(key => typeof item[key] === 'string' && item[key].trim()) &&
+        ['source', 'note'].every(key => typeof item[key] === 'string') &&
+        Number.isSafeInteger(item.price) && item.price >= 0 &&
+        typeof item.createdAt === 'string' && Number.isFinite(Date.parse(item.createdAt)) &&
+        (!Object.hasOwn(item, 'purchaseDate') || validDate(item.purchaseDate));
+    }
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw !== null) {
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed) || !parsed.every(validRecord) ||
+              new Set(parsed.map(item => item.id)).size !== parsed.length ||
+              !Number.isSafeInteger(parsed.reduce((sum, item) => sum + item.price, 0))) {
+            throw new Error('Invalid collection data');
+          }
+          collections = parsed;
+          // 載入只讀取資料，不觸發遷移寫入，也不刪除任何紀錄。
+        }
+      } catch (error) {
+        storageReady = false;
+        storageError('無法讀取收藏資料，可能是資料格式異常或瀏覽器禁止儲存。原始資料未被覆寫；請檢查瀏覽器的網站資料與儲存設定後重新整理。');
+        form.querySelector('button[type="submit"]').disabled = true;
+      }
+    }
+    function save(next) {
+      if (!storageReady) return false;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+        collections = next;
+        clearStorageError();
+        return true;
+      } catch (error) {
+        storageError('儲存失敗，可能是瀏覽器儲存空間不足或禁止儲存。本次變更尚未完成，原始收藏維持不變；請檢查設定後再試一次。');
+        return false;
+      }
+    }
+    function element(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+    function icon(symbol, size) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      for (const [key, value] of Object.entries({width:size,height:size,fill:'none',stroke:'currentColor','stroke-width':'1.5','aria-hidden':'true'})) svg.setAttribute(key, value);
+      const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      use.setAttribute('href', '#' + (symbol === 'search' ? 'search-icon' : symbol));
+      svg.append(use);
+      return svg;
+    }
+    function render() {
+      updateOptions();
+      renderDashboard();
+      renderList();
+    }
+    function updateOptions() {
+      const ips = [...new Set(collections.map(item => item.ip))].sort(compareNames);
+      const categories = [...new Set(collections.map(item => item.category))].sort(compareNames);
+      for (const [id, values, defaultLabel] of [['filter-ip', ips, '全部作品'], ['filter-category', categories, '全部類型']]) {
+        const selected = $(id).value;
+        const options = [new Option(defaultLabel, ''), ...values.map(value => new Option(value, value))];
+        $(id).replaceChildren(...options);
+        $(id).value = values.includes(selected) ? selected : '';
+      }
+      $('ip-suggestions').replaceChildren(...ips.map(value => new Option(value, value)));
+      $('category-suggestions').replaceChildren(...[...new Set([...commonCategories, ...categories])].map(value => new Option(value, value)));
+    }
+    function emptyState(message, symbol = 'box', addButton = false) {
+      const empty = element('div', 'empty');
+      const mark = element('div', 'empty-icon');
+      mark.append(icon(symbol, 28));
+      empty.append(mark, element('p', '', message));
+      if (addButton) {
+        const button = element('button', 'primary', '新增收藏');
+        button.type = 'button';
+        button.addEventListener('click', () => showPage('add', true));
+        empty.append(button);
+      }
+      return empty;
+    }
+    function renderDashboard() {
+      const total = collections.reduce((sum, item) => sum + item.price, 0);
+      $('total-count').textContent = formatter.format(collections.length);
+      $('total-price').textContent = formatter.format(total);
+      const month = today().slice(0, 7);
+      $('monthly-price').textContent = formatter.format(collections.reduce((sum, item) => sum + (item.purchaseDate?.startsWith(month + '-') ? item.price : 0), 0));
+      $('month-label').textContent = `${month.replace('-', ' 年 ')} 月 · 依購入日期`;
+      const groups = new Map();
+      for (const item of collections) {
+        if (!groups.has(item.ip)) groups.set(item.ip, {name:item.ip, count:0, price:0});
+        const group = groups.get(item.ip);
+        group.count++;
+        group.price += item.price;
+      }
+      const ranking = [...groups.values()].sort((a, b) => b.price - a.price || b.count - a.count || compareNames(a.name, b.name));
+      const rankingList = $('ranking-list');
+      rankingList.replaceChildren();
+      if (!ranking.length) rankingList.append(emptyState(storageReady ? '尚未有作品紀錄，從第一件喜歡開始吧。' : '收藏資料尚未載入，請查看上方錯誤訊息。', 'star'));
+      const maxPrice = ranking[0]?.price || 0;
+      for (const [index, group] of (rankingExpanded ? ranking : ranking.slice(0, 5)).entries()) {
+        const row = element('div', 'rank-row');
+        const info = element('div', 'rank-info');
+        const name = element('div', 'rank-name');
+        name.append(element('span', 'rank-index', String(index + 1).padStart(2, '0')), element('span', '', group.name));
+        const values = element('div', 'rank-values');
+        values.append(document.createTextNode(`${formatter.format(group.count)} 件`), element('strong', '', `NT$ ${formatter.format(group.price)}`));
+        info.append(name, values);
+        const track = element('div', 'bar-track');
+        track.setAttribute('aria-hidden', 'true');
+        const fill = element('div', 'bar-fill');
+        fill.style.width = (maxPrice ? group.price / maxPrice * 100 : 0) + '%';
+        track.append(fill);
+        row.append(info, track);
+        rankingList.append(row);
+      }
+      $('toggle-ranking').hidden = ranking.length <= 5;
+      $('toggle-ranking').textContent = rankingExpanded ? '收合為前五名' : '展開全部';
+      $('toggle-ranking').setAttribute('aria-expanded', String(rankingExpanded));
+      const recent = $('recent-list');
+      recent.replaceChildren();
+      if (!collections.length) recent.append(emptyState(storageReady ? '還沒有收藏紀錄，來記錄你的第一顆星。' : '收藏資料尚未載入，請查看上方錯誤訊息。', 'star', storageReady));
+      for (const item of [...collections].sort(newest).slice(0, 3)) {
+        const row = element('article', 'recent-item');
+        const info = element('div', 'recent-info');
+        const tags = element('div', 'tags');
+        tags.append(element('span', 'tag', item.ip), element('span', 'tag category', item.category));
+        info.append(element('h3', '', item.name), tags);
+        const price = element('p', 'card-price');
+        price.append(element('span', '', 'NT$'), document.createTextNode(formatter.format(item.price)));
+        row.append(info, price);
+        recent.append(row);
+      }
+    }
+    function renderList() {
+      const keyword = $('search').value.trim().toLocaleLowerCase();
+      const ip = $('filter-ip').value;
+      const category = $('filter-category').value;
+      const visible = collections.filter(item => (!ip || item.ip === ip) && (!category || item.category === category) &&
+        ['name','ip','category','source','note'].some(key => item[key].toLocaleLowerCase().includes(keyword)));
+      const sorters = {
+        newest,
+        oldest:(a, b) => -newest(a, b),
+        'price-desc':(a, b) => b.price - a.price || newest(a, b),
+        'price-asc':(a, b) => a.price - b.price || newest(a, b)
+      };
+      visible.sort(sorters[$('sort-order').value] || newest);
+      $('list-count').textContent = `${formatter.format(visible.length)} 件`;
+      $('result-status').textContent = `符合條件 ${formatter.format(visible.length)} 件，共 ${formatter.format(collections.length)} 件收藏。`;
+      list.replaceChildren();
+      if (!storageReady) {
+        list.append(emptyState('收藏資料尚未載入，請查看上方錯誤訊息。'));
+        return;
+      }
+      if (!visible.length) {
+        const filtering = keyword || ip || category;
+        list.append(emptyState(filtering ? '找不到符合條件的收藏' : '目前尚無收藏，快來新增第一筆收藏吧！', filtering ? 'search' : 'box', !filtering));
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      for (const item of visible) {
+        const card = element('article', 'collection-card');
+        const top = element('div', 'card-top');
+        const actions = element('div', 'card-actions');
+        const edit = element('button', 'edit');
+        edit.type = 'button';
+        edit.dataset.itemId = item.id;
+        edit.setAttribute('aria-label', `編輯：${item.name}`);
+        edit.append(icon('edit-icon', 15), document.createTextNode('編輯'));
+        edit.addEventListener('click', () => openEdit(item.id, edit));
+        const remove = element('button', 'delete');
+        remove.type = 'button';
+        remove.setAttribute('aria-label', `刪除：${item.name}`);
+        remove.append(icon('trash', 15), document.createTextNode('刪除'));
+        remove.addEventListener('click', () => {
+          pendingId = item.id;
+          deleteTrigger = remove;
+          $('delete-description').textContent = `確定要刪除「${item.name}」嗎？刪除後無法復原。`;
+          dialog.showModal();
+        });
+        actions.append(edit, remove);
+        top.append(element('h3', '', item.name), actions);
+        const tags = element('div', 'tags');
+        tags.append(element('span', 'tag', item.ip), element('span', 'tag category', item.category));
+        const price = element('p', 'card-price');
+        price.append(element('span', '', 'NT$'), document.createTextNode(formatter.format(item.price)));
+        card.append(top, tags, price);
+        const purchase = element('p', 'date-line');
+        if (item.purchaseDate) {
+          purchase.append(document.createTextNode('購入日期：'));
+          const date = element('time', '', item.purchaseDate);
+          date.dateTime = item.purchaseDate;
+          purchase.append(date);
+        } else purchase.textContent = '未設定購入日期';
+        card.append(purchase);
+        if (item.source || item.note) {
+          const details = element('div', 'details');
+          for (const [key, label] of [['source','來源'], ['note','備註']]) {
+            if (!item[key]) continue;
+            const row = element('p');
+            row.append(element('span', 'detail-label', label), document.createTextNode(item[key]));
+            details.append(row);
+          }
+          card.append(details);
+        }
+        fragment.append(card);
+      }
+      list.append(fragment);
+    }
+    function validateFields(prefix = '', existing = null) {
+      let firstInvalid = null;
+      const data = {};
+      for (const key of ['name','ip','category','price','purchaseDate','source','note']) data[key] = $(prefix + key).value.trim();
+      for (const key of requiredFields) {
+        let error = '';
+        if (key === 'price') {
+          const number = Number(data.price);
+          if (!/^\d+$/.test(data.price) || !Number.isSafeInteger(number) || number < 0) error = '請輸入有效的非負整數金額，允許 0。';
+          else if (!Number.isSafeInteger(collections.reduce((sum, item) => sum + (item.id === existing?.id ? 0 : item.price), 0) + number)) error = '累積金額超出可精確計算的範圍，請調整金額。';
+        } else if (key === 'purchaseDate') {
+          const optionalLegacyDate = existing && !existing.purchaseDate;
+          if ($(prefix + key).validity.badInput || (!(optionalLegacyDate && data[key] === '') && !validDate(data[key]))) error = '請選擇合法的購入日期。';
+        } else if (!data[key]) error = '請填寫此必填欄位，不可只輸入空白。';
+        $(prefix + key + '-error').textContent = error;
+        $(prefix + key).setAttribute('aria-invalid', String(Boolean(error)));
+        if (error && !firstInvalid) firstInvalid = $(prefix + key);
+      }
+      if (firstInvalid) {
+        if (!prefix) notify('尚未新增收藏，請修正標示的欄位後再試一次。', 'error', 'add');
+        firstInvalid.focus();
+        return null;
+      }
+      data.price = Number(data.price);
+      return data;
+    }
+    function openEdit(id, trigger) {
+      const item = collections.find(item => item.id === id);
+      if (!item || !storageReady) return;
+      clearNotice();
+      editingId = id;
+      editTrigger = trigger;
+      clearErrors('edit-');
+      for (const key of ['name','ip','category','price','purchaseDate','source','note']) $('edit-' + key).value = item[key] ?? '';
+      const dateRequired = Boolean(item.purchaseDate);
+      $('edit-purchaseDate').required = dateRequired;
+      $('edit-date-required').hidden = !dateRequired;
+      $('edit-date-optional').hidden = dateRequired;
+      $('edit-date-hint').textContent = dateRequired ? '請保留或選擇合法的購入日期。' : '此筆舊紀錄未設定購入日期，可維持空白或自行補上。';
+      $('edit-storage-error').textContent = $('storage-error').textContent;
+      $('edit-storage-error').hidden = $('storage-error').hidden;
+      editDialog.showModal();
+      $('edit-name').focus();
+      editDialog.scrollTop = 0;
+    }
+    editForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const existing = collections.find(item => item.id === editingId);
+      if (!storageReady || !existing) {
+        storageError('無法安全更新這筆收藏，原始資料未變更。請關閉對話框並檢查資料後再試。');
+        return;
+      }
+      const data = validateFields('edit-', existing);
+      if (!data) return;
+      // 只更新表單欄位，保留原本的 id、createdAt 與其他既有資料。
+      const updated = {...existing, ...data};
+      if (!data.purchaseDate) delete updated.purchaseDate;
+      const next = collections.map(item => item.id === existing.id ? updated : item);
+      if (save(next)) {
+        render();
+        editDialog.close();
+        notify('收藏資料已更新。', 'success', 'collection');
+      }
+    });
+    $('cancel-edit').addEventListener('click', () => editDialog.close());
+    editDialog.addEventListener('close', () => {
+      const replacement = [...list.querySelectorAll('.edit')].find(button => button.dataset.itemId === editingId);
+      if (editTrigger?.isConnected) editTrigger.focus();
+      else if (replacement) replacement.focus();
+      else $('search').focus();
+      editingId = null;
+      editTrigger = null;
+      editForm.reset();
+      clearErrors('edit-');
+    });
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!storageReady) {
+        storageError('收藏資料尚未安全載入，已停止新增以保留原始儲存內容。');
+        return;
+      }
+      const data = validateFields();
+      if (!data) return;
+      let id;
+      do { id = globalThis.crypto?.randomUUID?.() || Date.now().toString(36) + '-' + Math.random().toString(36).slice(2); }
+      while (collections.some(item => item.id === id));
+      const item = {...data, price:Number(data.price), id, createdAt:new Date().toISOString()};
+      if (save([item, ...collections])) {
+        form.reset();
+        $('purchaseDate').value = today();
+        clearErrors();
+        render();
+        notify('收藏新增成功，已儲存於此瀏覽器。你可以繼續記錄下一顆星。', 'success', 'add');
+        $('name').focus();
+      }
+    });
+    $('search').addEventListener('input', renderList);
+    for (const id of ['filter-ip','filter-category','sort-order']) $(id).addEventListener('change', renderList);
+    $('clear-filters').addEventListener('click', () => {
+      $('search').value = '';
+      $('filter-ip').value = '';
+      $('filter-category').value = '';
+      $('sort-order').value = 'newest';
+      renderList();
+    });
+    $('toggle-ranking').addEventListener('click', () => {
+      rankingExpanded = !rankingExpanded;
+      renderDashboard();
+    });
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => showPage(tab.dataset.page));
+      tab.addEventListener('keydown', event => {
+        let target;
+        if (event.key === 'ArrowRight') target = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') target = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') target = 0;
+        else if (event.key === 'End') target = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        showPage(tabs[target].dataset.page);
+        tabs[target].focus();
+      });
+    });
+    for (const button of document.querySelectorAll('[data-go]')) button.addEventListener('click', () => showPage(button.dataset.go, true));
+    window.addEventListener('focus', renderDashboard);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) renderDashboard(); });
+    $('cancel-delete').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => {
+      pendingId = null;
+      if (deleteTrigger?.isConnected) deleteTrigger.focus();
+      else $('search').focus();
+      deleteTrigger = null;
+    });
+    $('confirm-delete').addEventListener('click', () => {
+      if (pendingId === null) return;
+      if (save(collections.filter(item => item.id !== pendingId))) {
+        render();
+        notify('收藏已刪除。', 'success', 'collection');
+      }
+      dialog.close();
+    });
+    $('purchaseDate').value = today();
+    load();
+    render();
+  </script>
+</body>
+</html>
